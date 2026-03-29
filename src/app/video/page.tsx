@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Button, Input, VideoStatsDetail } from '@/components'
 import { getVideoById } from '@/services/youtube'
@@ -8,6 +8,14 @@ import { extractVideoId } from '@/lib/youtube-utils'
 import type { FormattedVideoData } from '@/types/youtube'
 
 export default function VideoAnalyticsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-4 border-rausch border-t-transparent"></div></div>}>
+      <VideoAnalyticsContent />
+    </Suspense>
+  )
+}
+
+function VideoAnalyticsContent() {
   const searchParams = useSearchParams()
   const [videoInput, setVideoInput] = useState('')
   const [video, setVideo] = useState<FormattedVideoData | null>(null)
