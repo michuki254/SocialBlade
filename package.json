@@ -1,0 +1,44 @@
+{
+  "name": "socialblade",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@auth/core": "^0.34.3",
+    "chart.js": "^4.5.1",
+    "chartjs-plugin-annotation": "^3.1.0",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "googleapis": "^166.0.0",
+    "jspdf": "^3.0.3",
+    "jspdf-autotable": "^5.0.2",
+    "mongodb": "^7.0.0",
+    "mongoose": "^8.19.4",
+    "next": "^16.0.3",
+    "next-auth": "^4.24.13",
+    "node-cron": "^4.2.1",
+    "openai": "^6.9.0",
+    "react": "^19.2.0",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.5",
+    "autoprefixer": "^10.4.22",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
+    "typescript": "^5.9.3"
+  }
+}
