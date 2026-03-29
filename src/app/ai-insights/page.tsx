@@ -161,8 +161,8 @@ export default function AIInsightsPage() {
     setLoading(true)
     try {
       const competitorIds = trackedChannels
-        .filter(c => c.channelId !== selectedChannel.id)
-        .map(c => c.channelId)
+        .filter(c => c.id !== selectedChannel.id)
+        .map(c => c.id)
         .slice(0, 3)
 
       const response = await fetch('/api/ai/insights', {
