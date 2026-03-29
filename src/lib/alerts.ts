@@ -278,12 +278,11 @@ export function detectAnomalies(
   const anomalies: { video: FormattedVideoData; spike: SpikeDetectionResult }[] = []
 
   // Check view anomalies
-  const viewData = videos.map((v, i) => ({ x: i, y: v.views }))
+  const viewData = videos.map((v) => ({ timestamp: new Date(), value: v.views }))
   const viewSpike = detectSpike(viewData)
 
-  if (viewSpike.hasSpike && viewSpike.spikeIndex !== null) {
-    const spikeVideo = videos[viewSpike.spikeIndex]
-    anomalies.push({ video: spikeVideo, spike: viewSpike })
+  if (viewSpike.isSpike) {
+    anomalies.push({ video: videos[videos.length - 1], spike: viewSpike })
   }
 
   return anomalies
@@ -316,7 +315,7 @@ export function checkCompetitiveAlerts(
         metric: milestone.metric,
         value: milestone.currentValue,
         previousValue: milestone.previousValue
-      } as Omit<Alert, 'id' | 'timestamp' | 'read' | 'dismissed'>)
+      } as any)
     }
 
     // Check for significant growth
@@ -334,7 +333,7 @@ export function checkCompetitiveAlerts(
         metric: 'subscribers',
         value: competitor.subscribers,
         previousValue: previous.subscribers
-      } as Omit<Alert, 'id' | 'timestamp' | 'read' | 'dismissed'>)
+      } as any)
     }
   }
 

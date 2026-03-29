@@ -45,21 +45,21 @@ export function useAlertMonitor() {
         for (const tracked of trackedChannels) {
           try {
             // Fetch current channel data
-            const currentChannel = await getChannelById(tracked.channelId)
+            const currentChannel = await getChannelById(tracked.id)
             if (!currentChannel) continue
 
             // Get historical snapshots
-            const snapshots = getChannelSnapshotsById(tracked.channelId)
+            const snapshots = getChannelSnapshotsById(tracked.id)
             const previousSnapshot = snapshots.length > 0
               ? snapshots[snapshots.length - 1]
               : null
 
             if (previousSnapshot) {
-              previousStates.set(currentChannel.id, previousSnapshot.data)
+              previousStates.set(currentChannel.id, previousSnapshot.data as any)
 
               // Check milestones
               if (config.milestoneAlerts) {
-                const milestones = checkMilestones(currentChannel, previousSnapshot.data, config)
+                const milestones = checkMilestones(currentChannel, previousSnapshot.data as any, config)
                 for (const milestone of milestones) {
                   const alert = addAlert({
                     type: 'milestone',
@@ -80,7 +80,7 @@ export function useAlertMonitor() {
               if (config.performanceAlerts) {
                 const drop = checkPerformanceDrop(
                   currentChannel,
-                  previousSnapshot.data,
+                  previousSnapshot.data as any,
                   config.performanceThreshold
                 )
                 if (drop) {
@@ -100,7 +100,7 @@ export function useAlertMonitor() {
               }
             }
           } catch (err) {
-            console.error(`Error checking alerts for channel ${tracked.channelId}:`, err)
+            console.error(`Error checking alerts for channel ${tracked.id}:`, err)
           }
         }
 
@@ -109,7 +109,7 @@ export function useAlertMonitor() {
           const currentChannels: FormattedChannelData[] = []
           for (const tracked of trackedChannels) {
             try {
-              const channel = await getChannelById(tracked.channelId)
+              const channel = await getChannelById(tracked.id)
               if (channel) currentChannels.push(channel)
             } catch {
               // Skip if error
