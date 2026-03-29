@@ -86,11 +86,12 @@ export default function CompareChannelsPage() {
   }
 
   // Calculate rankings
-  const rankings = channels.length > 0 ? {
-    subscribers: [...channels].sort((a, b) => b.subscribers - a.subscribers),
-    views: [...channels].sort((a, b) => b.totalViews - a.totalViews),
-    videos: [...channels].sort((a, b) => b.videoCount - a.videoCount),
-    avgViews: [...channels].sort((a, b) => (b.totalViews / b.videoCount) - (a.totalViews / a.videoCount)),
+  const validChannels = channels.filter((c): c is FormattedChannelData => c !== null)
+  const rankings = validChannels.length > 0 ? {
+    subscribers: [...validChannels].sort((a, b) => b.subscribers - a.subscribers),
+    views: [...validChannels].sort((a, b) => b.totalViews - a.totalViews),
+    videos: [...validChannels].sort((a, b) => b.videoCount - a.videoCount),
+    avgViews: [...validChannels].sort((a, b) => (b.totalViews / b.videoCount) - (a.totalViews / a.videoCount)),
   } : null
 
   return (
