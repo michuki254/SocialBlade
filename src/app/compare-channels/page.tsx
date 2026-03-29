@@ -164,7 +164,7 @@ export default function CompareChannelsPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {channels.map((channel, index) => {
+                      {validChannels.map((channel, index) => {
                         const avgViews = Math.floor(channel.totalViews / channel.videoCount)
                         const isTopSubs = rankings?.subscribers[0].id === channel.id
                         const isTopViews = rankings?.views[0].id === channel.id
@@ -239,10 +239,10 @@ export default function CompareChannelsPage() {
                     </h3>
                     <GenericChart
                       data={{
-                        labels: channels.map(c => c.title.length > 20 ? c.title.substring(0, 20) + '...' : c.title),
+                        labels: validChannels.map(c => c.title.length > 20 ? c.title.substring(0, 20) + '...' : c.title),
                         datasets: [{
                           label: 'Subscribers',
-                          data: channels.map(c => c.subscribers),
+                          data: validChannels.map(c => c.subscribers),
                           backgroundColor: '#FF5A5F',
                         }]
                       }}
@@ -258,10 +258,10 @@ export default function CompareChannelsPage() {
                     </h3>
                     <GenericChart
                       data={{
-                        labels: channels.map(c => c.title.length > 20 ? c.title.substring(0, 20) + '...' : c.title),
+                        labels: validChannels.map(c => c.title.length > 20 ? c.title.substring(0, 20) + '...' : c.title),
                         datasets: [{
                           label: 'Total Views',
-                          data: channels.map(c => c.totalViews),
+                          data: validChannels.map(c => c.totalViews),
                           backgroundColor: '#00A699',
                         }]
                       }}
@@ -277,10 +277,10 @@ export default function CompareChannelsPage() {
                     </h3>
                     <GenericChart
                       data={{
-                        labels: channels.map(c => c.title.length > 20 ? c.title.substring(0, 20) + '...' : c.title),
+                        labels: validChannels.map(c => c.title.length > 20 ? c.title.substring(0, 20) + '...' : c.title),
                         datasets: [{
                           label: 'Videos',
-                          data: channels.map(c => c.videoCount),
+                          data: validChannels.map(c => c.videoCount),
                           backgroundColor: '#FC642D',
                         }]
                       }}
@@ -296,10 +296,10 @@ export default function CompareChannelsPage() {
                     </h3>
                     <GenericChart
                       data={{
-                        labels: channels.map(c => c.title.length > 20 ? c.title.substring(0, 20) + '...' : c.title),
+                        labels: validChannels.map(c => c.title.length > 20 ? c.title.substring(0, 20) + '...' : c.title),
                         datasets: [{
                           label: 'Avg Views/Video',
-                          data: channels.map(c => Math.floor(c.totalViews / c.videoCount)),
+                          data: validChannels.map(c => Math.floor(c.totalViews / c.videoCount)),
                           backgroundColor: '#484848',
                         }]
                       }}
@@ -317,10 +317,10 @@ export default function CompareChannelsPage() {
                   </h3>
                   <GenericChart
                     data={{
-                      labels: channels.map(c => c.title),
+                      labels: validChannels.map(c => c.title),
                       datasets: [{
                         label: 'Subscribers',
-                        data: channels.map(c => c.subscribers),
+                        data: validChannels.map(c => c.subscribers),
                         backgroundColor: [
                           '#FF5A5F',
                           '#00A699',
@@ -341,7 +341,7 @@ export default function CompareChannelsPage() {
                   Detailed Breakdown
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {channels.map((channel) => (
+                  {validChannels.map((channel) => (
                     <Card key={channel.id}>
                       <div className="p-6">
                         <div className="flex items-center gap-4 mb-4">
