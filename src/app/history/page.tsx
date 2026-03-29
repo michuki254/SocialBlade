@@ -117,7 +117,7 @@ export default function HistoryPage() {
 
       if (previousSnapshot && config.performanceAlerts) {
         // Check performance drops
-        const drop = checkPerformanceDrop(channel, previousSnapshot.data, config.performanceThreshold)
+        const drop = checkPerformanceDrop(channel, previousSnapshot.data as any, config.performanceThreshold)
         if (drop) {
           const alert = addAlert({
             type: 'performance_drop',
