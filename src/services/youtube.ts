@@ -538,6 +538,36 @@ export async function discoverChannelsFromTrending(regions: string[]): Promise<s
 }
 
 /**
+ * Search for channels in a specific country using YouTube Search API.
+ * Uses multiple queries to maximize discovery of local creators.
+ * Returns channel IDs only.
+ */
+export async function searchChannelsByCountry(countryCode: string): Promise<string[]> {
+  const allIds = new Set<string>()
+  const queries = ['', 'news', 'music', 'entertainment', 'comedy', 'vlog']
+
+  for (const q of queries) {
+    try {
+      const searchQuery = q ? `&q=${q}` : ''
+      const url = `${API_URL}/search?part=snippet&type=channel&regionCode=${countryCode}&order=viewCount&maxResults=50${searchQuery}&key=${API_KEY}`
+      const response = await fetch(url)
+
+      if (!response.ok) continue
+
+      const data: YouTubeSearchListResponse = await response.json()
+      data.items?.forEach((item) => {
+        const channelId = item.snippet?.channelId || item.id?.channelId
+        if (channelId) allIds.add(channelId)
+      })
+    } catch (error) {
+      // skip failed queries
+    }
+  }
+
+  return Array.from(allIds)
+}
+
+/**
  * Get global top channels by aggregating popular channels from multiple major regions
  * @deprecated Use getChannelsByIds + discoverChannelsFromTrending instead (used by cron job)
  */
