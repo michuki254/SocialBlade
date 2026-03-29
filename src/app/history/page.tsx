@@ -98,7 +98,7 @@ export default function HistoryPage() {
 
       if (previousSnapshot && config.milestoneAlerts) {
         // Check milestones
-        const milestones = checkMilestones(channel, previousSnapshot.data, config)
+        const milestones = checkMilestones(channel, previousSnapshot.data as any, config)
         for (const milestone of milestones) {
           const alert = addAlert({
             type: 'milestone',
